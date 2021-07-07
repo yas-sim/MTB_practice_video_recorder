@@ -13,13 +13,16 @@
 
 --------
 ## Prerequisites (必要要件)
- Python 3.xが動作する環境  
+ - Python 3.x  
+ - OpenCV Python  
+    `# python -m pip install opencv-python`  
+
 [Python web site](https://www.python.org/)
 
 --------
 ## How to use (使用方法)
 
-`python mtb_recorder.py [-i <movie_file>] [-c <cam#>]`
+`# python mtb_recorder.py [-i <movie_file>] [-c <cam#>]`
 
 **Options:**  
 |Options|Descriptions|
@@ -28,8 +31,8 @@
 |`-c` or `--cam`|Specify the number of USB webCam (1st camera = 0)|  
   
 **Examples:**  
-`python mtb_recorder.py -i mtb_movie.mp4`  
-`python mtb_recorder.py -c 0`  
+`# python mtb_recorder.py -i mtb_movie.mp4`  
+`# python mtb_recorder.py -c 0`  
 
 --------
 ## How to operate (操作方法)
