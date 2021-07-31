@@ -14,15 +14,21 @@
 --------
 ## Prerequisites (必要要件)
  - Python 3.x  
- - OpenCV Python  
-    `# python -m pip install opencv-python`  
+ - OpenCV Python, Numpy  
+ ```sh
+ $ python -m pip install opencv-python numpy
+ ```  
 
 [Python web site](https://www.python.org/)
 
 --------
+
 ## How to use (使用方法)
 
-`# python mtb_recorder.py [-i <movie_file>] [-c <cam#>]`
+```sh
+$ python mtb_recorder.py [-i <movie_file>] [-c <cam#>]
+```
+Note: cam0 will be used when no option is given.  
 
 **Options:**  
 |Options|Descriptions|
@@ -31,8 +37,10 @@
 |`-c` or `--cam`|Specify the number of USB webCam (1st camera = 0)|  
   
 **Examples:**  
-`# python mtb_recorder.py -i mtb_movie.mp4`  
-`# python mtb_recorder.py -c 0`  
+```sh
+$ python mtb_recorder.py -i mtb_movie.mp4
+$ python mtb_recorder.py -c 0
+```
 
 --------
 ## How to operate (操作方法)

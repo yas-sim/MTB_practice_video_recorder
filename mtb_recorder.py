@@ -34,6 +34,20 @@ def main(args):
         fps = cam.get(cv2.CAP_PROP_FPS)
     print(fps, 'fps')
 
+    # Key definition
+    kl_1sec_r  = [ ord('z') ]
+    kl_1sec_f  = [ ord('x') ]
+    kl_10sec_r = [ ord('a') ]
+    kl_10sec_f = [ ord('s') ]
+    kl_1frm_r  = [ ord('j') ]
+    kl_1frm_f  = [ ord('k') ]
+    kl_sync    = [ ord('0') ]
+    kl_play_r  = [ ord('n') ]
+    kl_play_f  = [ ord('m') ]
+    kl_pause   = [ ord(' ') ]
+    kl_rec     = [ ord('r') ]
+    kl_exit    = [ ord('q'), 27 ]
+
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 60]
     record_length = 60 * 10   # buffer length [sec]
     movie_length = 5          # movie rength [sec]
@@ -85,25 +99,25 @@ def main(args):
         cv2.imshow('Time Shift', decimg)
 
         key = cv2.waitKey(int(1 * ((1000/cam_fps) if sts==False else 1)))     # frame wait if the input movie has reached to the end
-        if key == ord('z'): ptr_r = add_ptr(ptr_r,    -cam_fps, buf_length)
-        if key == ord('x'): ptr_r = add_ptr(ptr_r,     cam_fps, buf_length)
-        if key == ord('a'): ptr_r = add_ptr(ptr_r, -cam_fps*10, buf_length)
-        if key == ord('s'): ptr_r = add_ptr(ptr_r,  cam_fps*10, buf_length)
-        if key == ord('j'): ptr_r = add_ptr(ptr_r,          -1, buf_length)
-        if key == ord('k'): ptr_r = add_ptr(ptr_r,           1, buf_length)
+        if key in kl_1sec_r:  ptr_r = add_ptr(ptr_r,    -cam_fps, buf_length)
+        if key in kl_1sec_f:  ptr_r = add_ptr(ptr_r,     cam_fps, buf_length)
+        if key in kl_10sec_r: ptr_r = add_ptr(ptr_r, -cam_fps*10, buf_length)
+        if key in kl_10sec_f: ptr_r = add_ptr(ptr_r,  cam_fps*10, buf_length)
+        if key in kl_1frm_r:  ptr_r = add_ptr(ptr_r,          -1, buf_length)
+        if key in kl_1frm_f:  ptr_r = add_ptr(ptr_r,           1, buf_length)
 
-        if key == ord('0'):
+        if key in kl_sync:
             ptr_r = ptr_w
-        if key == ord(' '):
+        if key in kl_pause:
             ptr_mul = 0 if ptr_mul != 0 else 1
-        if key == ord('m'):
+        if key in kl_play_f:
             ptr_inc = 1
             ptr_mul = 1
-        if key == ord('n'):
+        if key in kl_play_r:
             ptr_inc = -1
             ptr_mul =  1
 
-        if key == ord('r'):
+        if key in kl_rec:
             # TODO: Isolate this in an another thread
             dt = datetime.datetime.now()
             codec = cv2.VideoWriter_fourcc(*'mp4v')
@@ -114,7 +128,7 @@ def main(args):
                 writer.write(tmp_img)
             writer.release()
 
-        if key == 27 or key == ord('q'):
+        if key in kl_exit:
             break
 
     cam.release()
